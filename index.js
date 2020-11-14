@@ -42,10 +42,12 @@ telegram.onText(/\/start/, (msg) => {
 
 telegram.onText(/\/kod_stolovka/, (msg) => {
   // telegram.sendMessage(msg.chat.id, "Kod Stolovka");
-  // for (var user of User.find()) {
-  //   console.log(user);
-  //   telegram.sendMessage(user.id, "KOD STOLOVLKA");
-  // }
+  User.find((err, users) => {
+    for (var user of users) {
+      console.log(user);
+      telegram.sendMessage(user.id, "KOD STOLOVLKA");
+    }
+  });
 });
 
 telegram.on("polling_error", (err) => {
