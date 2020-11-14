@@ -26,26 +26,26 @@ telegram.onText(/\/start/, (msg) => {
   });
 
   console.log(user.username);
-  console.log(`is in db: ${User.findOne({ username: user.username }) != null}`);
-
-  if (
-    User.findOne({
-      id: user.id,
-    }) == null
-  ) {
-    user.save();
-  }
-  telegram.sendMessage(
-    msg.chat.id,
-    `АХАХАХАХАХХАХАХАХАХАХХАХАХАХАХ \nИщи себя в прошмандовках Азербайджана, \n${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`
-  );
+  // User.findOne({ username: user.username }, (err, obj) => {
+  //   console.log(`is in db: ${obj.id ? true : false}`);
+  // });
+  User.findOne({ username: user.username }, (err, obj) => {
+    if (!obj) {
+      user.save();
+      telegram.sendMessage(
+        msg.chat.id,
+        `АХАХАХАХАХХАХАХАХАХАХХАХАХАХАХ \nИщи себя в прошмандовках Азербайджана, \n${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`
+      );
+    } else telegram.sendMessage(msg.chat.id, "Ну и хули ты опять припиздил?");
+  });
 });
 
 telegram.onText(/\/kod_stolovka/, (msg) => {
   // telegram.sendMessage(msg.chat.id, "Kod Stolovka");
-  for (var user of User.find()) {
-    telegram.sendMessage(user.id, "KOD STOLOVLKA");
-  }
+  // for (var user of User.find()) {
+  //   console.log(user);
+  //   telegram.sendMessage(user.id, "KOD STOLOVLKA");
+  // }
 });
 
 telegram.on("polling_error", (err) => {
