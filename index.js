@@ -34,7 +34,7 @@ telegram.onText(/\/start/, (msg) => {
       user.save();
       telegram.sendMessage(
         msg.chat.id,
-        `АХАХАХАХАХХАХАХАХАХАХХАХАХАХАХ \nИщи себя в прошмандовках Азербайджана, \n${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`
+        `АХАХАХАХАХХАХАХАХАХАХХАХАХАХАХ \nИщи себя в прошмандовках Азербайджана, \n${user.first_name} ${user.last_name}`
       );
     } else telegram.sendMessage(msg.chat.id, "Ну и хули ты опять припиздил?");
   });
